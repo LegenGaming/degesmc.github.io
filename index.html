@@ -1,0 +1,818 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DEGESMC | Official Network</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #050505;
+            color: #ffffff;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand-gradient {
+            background: linear-gradient(135deg, #007cf0 0%, #00dfd8 100%);
+        }
+
+        .brand-text {
+            background: linear-gradient(to right, #007cf0, #00dfd8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card-blur {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card-blur:hover {
+            transform: translateY(-8px);
+            border-color: #007cf0;
+            box-shadow: 0 15px 40px rgba(0, 124, 240, 0.2);
+        }
+
+        .hero-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0, 124, 240, 0.15) 0%, transparent 70%);
+            z-index: -1;
+        }
+
+        .nav-link {
+            position: relative;
+            cursor: pointer;
+            transition: color 0.3s;
+            color: #a3a3a3;
+        }
+
+        .nav-link:hover { color: #ffffff; }
+        .nav-link.active { color: #007cf0; }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #007cf0;
+            box-shadow: 0 0 8px #007cf0;
+        }
+
+        /* Blinking Status Dot */
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #10b981;
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 10px #10b981;
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(1.2); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .section-view, .store-category, .wiki-content {
+            display: none;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .section-view.active, .store-category.active, .wiki-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .category-btn, .wiki-nav-btn {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            transition: all 0.3s;
+        }
+
+        .category-btn.active, .wiki-nav-btn.active {
+            background: #007cf0;
+            border-color: #007cf0;
+            color: white;
+        }
+
+        .modal-overlay {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+        }
+
+        .price-tag {
+            font-size: 0.85rem;
+            color: #94a3b8;
+        }
+
+        .price-primary {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #007cf0;
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-thumb { background: #1a1a1a; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #007cf0; }
+    </style>
+<style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.fixed{position:fixed}.absolute{position:absolute}.relative{position:relative}.inset-0{inset:0px}.z-50{z-index:50}.z-\[100\]{z-index:100}.mx-auto{margin-left:auto;margin-right:auto}.mb-1{margin-bottom:0.25rem}.mb-10{margin-bottom:2.5rem}.mb-12{margin-bottom:3rem}.mb-2{margin-bottom:0.5rem}.mb-20{margin-bottom:5rem}.mb-4{margin-bottom:1rem}.mb-6{margin-bottom:1.5rem}.mb-8{margin-bottom:2rem}.mt-2{margin-top:0.5rem}.mt-auto{margin-top:auto}.inline-block{display:inline-block}.flex{display:flex}.grid{display:grid}.hidden{display:none}.h-10{height:2.5rem}.h-16{height:4rem}.h-20{height:5rem}.h-8{height:2rem}.h-full{height:100%}.min-h-\[600px\]{min-height:600px}.w-10{width:2.5rem}.w-16{width:4rem}.w-20{width:5rem}.w-5{width:1.25rem}.w-8{width:2rem}.w-full{width:100%}.max-w-2xl{max-width:42rem}.max-w-4xl{max-width:56rem}.max-w-7xl{max-width:80rem}.max-w-md{max-width:28rem}.max-w-none{max-width:none}.flex-1{flex:1 1 0%}.scale-105{--tw-scale-x:1.05;--tw-scale-y:1.05;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.scale-110{--tw-scale-x:1.1;--tw-scale-y:1.1;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.cursor-pointer{cursor:pointer}.grid-cols-1{grid-template-columns:repeat(1, minmax(0, 1fr))}.flex-col{flex-direction:column}.flex-wrap{flex-wrap:wrap}.items-center{align-items:center}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-2{gap:0.5rem}.gap-3{gap:0.75rem}.gap-4{gap:1rem}.gap-6{gap:1.5rem}.gap-8{gap:2rem}.space-y-1 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.25rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.25rem * var(--tw-space-y-reverse))}.space-y-2 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.5rem * var(--tw-space-y-reverse))}.space-y-4 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1rem * var(--tw-space-y-reverse))}.space-y-8 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(2rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(2rem * var(--tw-space-y-reverse))}.overflow-hidden{overflow:hidden}.rounded{border-radius:0.25rem}.rounded-2xl{border-radius:1rem}.rounded-3xl{border-radius:1.5rem}.rounded-\[1\.5rem\]{border-radius:1.5rem}.rounded-\[2\.5rem\]{border-radius:2.5rem}.rounded-full{border-radius:9999px}.rounded-lg{border-radius:0.5rem}.rounded-xl{border-radius:0.75rem}.border{border-width:1px}.border-b{border-bottom-width:1px}.border-t{border-top-width:1px}.border-blue-500\/10{border-color:rgb(59 130 246 / 0.1)}.border-blue-500\/20{border-color:rgb(59 130 246 / 0.2)}.border-blue-500\/30{border-color:rgb(59 130 246 / 0.3)}.border-cyan-500\/20{border-color:rgb(6 182 212 / 0.2)}.border-cyan-500\/30{border-color:rgb(6 182 212 / 0.3)}.border-orange-500\/50{border-color:rgb(249 115 22 / 0.5)}.border-white\/10{border-color:rgb(255 255 255 / 0.1)}.border-white\/20{border-color:rgb(255 255 255 / 0.2)}.border-white\/5{border-color:rgb(255 255 255 / 0.05)}.bg-\[\#111\]{--tw-bg-opacity:1;background-color:rgb(17 17 17 / var(--tw-bg-opacity, 1))}.bg-black\/50{background-color:rgb(0 0 0 / 0.5)}.bg-black\/80{background-color:rgb(0 0 0 / 0.8)}.bg-blue-500\/10{background-color:rgb(59 130 246 / 0.1)}.bg-blue-500\/5{background-color:rgb(59 130 246 / 0.05)}.bg-blue-600{--tw-bg-opacity:1;background-color:rgb(37 99 235 / var(--tw-bg-opacity, 1))}.bg-blue-600\/20{background-color:rgb(37 99 235 / 0.2)}.bg-cyan-600\/20{background-color:rgb(8 145 178 / 0.2)}.bg-neutral-900{--tw-bg-opacity:1;background-color:rgb(23 23 23 / var(--tw-bg-opacity, 1))}.bg-orange-500\/\[0\.03\]{background-color:rgb(249 115 22 / 0.03)}.bg-orange-600{--tw-bg-opacity:1;background-color:rgb(234 88 12 / var(--tw-bg-opacity, 1))}.bg-white{--tw-bg-opacity:1;background-color:rgb(255 255 255 / var(--tw-bg-opacity, 1))}.bg-white\/5{background-color:rgb(255 255 255 / 0.05)}.p-1{padding:0.25rem}.p-4{padding:1rem}.p-6{padding:1.5rem}.p-8{padding:2rem}.px-12{padding-left:3rem;padding-right:3rem}.px-3{padding-left:0.75rem;padding-right:0.75rem}.px-4{padding-left:1rem;padding-right:1rem}.px-5{padding-left:1.25rem;padding-right:1.25rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.py-1\.5{padding-top:0.375rem;padding-bottom:0.375rem}.py-12{padding-top:3rem;padding-bottom:3rem}.py-2{padding-top:0.5rem;padding-bottom:0.5rem}.py-3{padding-top:0.75rem;padding-bottom:0.75rem}.py-4{padding-top:1rem;padding-bottom:1rem}.py-5{padding-top:1.25rem;padding-bottom:1.25rem}.pb-20{padding-bottom:5rem}.pt-32{padding-top:8rem}.pt-40{padding-top:10rem}.text-left{text-align:left}.text-center{text-align:center}.font-mono{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace}.text-2xl{font-size:1.5rem;line-height:2rem}.text-3xl{font-size:1.875rem;line-height:2.25rem}.text-4xl{font-size:2.25rem;line-height:2.5rem}.text-5xl{font-size:3rem;line-height:1}.text-\[10px\]{font-size:10px}.text-\[11px\]{font-size:11px}.text-\[9px\]{font-size:9px}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-sm{font-size:0.875rem;line-height:1.25rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.text-xs{font-size:0.75rem;line-height:1rem}.font-black{font-weight:900}.font-bold{font-weight:700}.font-extrabold{font-weight:800}.uppercase{text-transform:uppercase}.italic{font-style:italic}.leading-relaxed{line-height:1.625}.leading-tight{line-height:1.25}.tracking-\[0\.2em\]{letter-spacing:0.2em}.tracking-\[0\.3em\]{letter-spacing:0.3em}.tracking-\[0\.4em\]{letter-spacing:0.4em}.tracking-tighter{letter-spacing:-0.05em}.tracking-widest{letter-spacing:0.1em}.text-black{--tw-text-opacity:1;color:rgb(0 0 0 / var(--tw-text-opacity, 1))}.text-blue-400{--tw-text-opacity:1;color:rgb(96 165 250 / var(--tw-text-opacity, 1))}.text-blue-500{--tw-text-opacity:1;color:rgb(59 130 246 / var(--tw-text-opacity, 1))}.text-cyan-300\/60{color:rgb(103 232 249 / 0.6)}.text-cyan-400{--tw-text-opacity:1;color:rgb(34 211 238 / var(--tw-text-opacity, 1))}.text-cyan-500{--tw-text-opacity:1;color:rgb(6 182 212 / var(--tw-text-opacity, 1))}.text-neutral-300{--tw-text-opacity:1;color:rgb(212 212 212 / var(--tw-text-opacity, 1))}.text-neutral-400{--tw-text-opacity:1;color:rgb(163 163 163 / var(--tw-text-opacity, 1))}.text-neutral-500{--tw-text-opacity:1;color:rgb(115 115 115 / var(--tw-text-opacity, 1))}.text-neutral-600{--tw-text-opacity:1;color:rgb(82 82 82 / var(--tw-text-opacity, 1))}.text-orange-300\/60{color:rgb(253 186 116 / 0.6)}.text-orange-400{--tw-text-opacity:1;color:rgb(251 146 60 / var(--tw-text-opacity, 1))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.text-yellow-500{--tw-text-opacity:1;color:rgb(234 179 8 / var(--tw-text-opacity, 1))}.shadow-2xl{--tw-shadow:0 25px 50px -12px rgb(0 0 0 / 0.25);--tw-shadow-colored:0 25px 50px -12px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-inner{--tw-shadow:inset 0 2px 4px 0 rgb(0 0 0 / 0.05);--tw-shadow-colored:inset 0 2px 4px 0 var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-lg{--tw-shadow:0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-blue-500\/10{--tw-shadow-color:rgb(59 130 246 / 0.1);--tw-shadow:var(--tw-shadow-colored)}.shadow-blue-600\/20{--tw-shadow-color:rgb(37 99 235 / 0.2);--tw-shadow:var(--tw-shadow-colored)}.shadow-orange-500\/20{--tw-shadow-color:rgb(249 115 22 / 0.2);--tw-shadow:var(--tw-shadow-colored)}.drop-shadow-xl{--tw-drop-shadow:drop-shadow(0 20px 13px rgb(0 0 0 / 0.03)) drop-shadow(0 8px 5px rgb(0 0 0 / 0.08));filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}.backdrop-blur-md{--tw-backdrop-blur:blur(12px);-webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}.transition{transition-property:color, background-color, border-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-transform{transition-property:transform;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.hover\:bg-blue-500:hover{--tw-bg-opacity:1;background-color:rgb(59 130 246 / var(--tw-bg-opacity, 1))}.hover\:bg-blue-600:hover{--tw-bg-opacity:1;background-color:rgb(37 99 235 / var(--tw-bg-opacity, 1))}.hover\:bg-cyan-600:hover{--tw-bg-opacity:1;background-color:rgb(8 145 178 / var(--tw-bg-opacity, 1))}.hover\:bg-yellow-600:hover{--tw-bg-opacity:1;background-color:rgb(202 138 4 / var(--tw-bg-opacity, 1))}.hover\:text-white:hover{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.focus\:border-blue-500:focus{--tw-border-opacity:1;border-color:rgb(59 130 246 / var(--tw-border-opacity, 1))}.focus\:outline-none:focus{outline:2px solid transparent;outline-offset:2px}.active\:scale-95:active{--tw-scale-x:.95;--tw-scale-y:.95;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.group:hover .group-hover\:rotate-12{--tw-rotate:12deg;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}@media (min-width: 640px){.sm\:flex{display:flex}.sm\:flex-row{flex-direction:row}}@media (min-width: 768px){.md\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.md\:grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}.md\:grid-cols-4{grid-template-columns:repeat(4, minmax(0, 1fr))}.md\:flex-row{flex-direction:row}.md\:text-left{text-align:left}.md\:text-8xl{font-size:6rem;line-height:1}.md\:text-xl{font-size:1.25rem;line-height:1.75rem}}@media (min-width: 1024px){.lg\:flex{display:flex}.lg\:w-80{width:20rem}.lg\:grid-cols-4{grid-template-columns:repeat(4, minmax(0, 1fr))}.lg\:flex-row{flex-direction:row}.lg\:p-12{padding:3rem}}</style></head>
+<body>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="fixed inset-0 z-[100] flex items-center justify-center p-6 hidden">
+        <div class="absolute inset-0 modal-overlay" onclick="closeLogin()"></div>
+        <div class="relative bg-neutral-900 border border-white/10 w-full max-w-md rounded-3xl p-8 shadow-2xl">
+            <h2 class="text-2xl font-bold mb-6 text-center italic uppercase tracking-tighter">Enter <span class="text-blue-500">Username</span></h2>
+            <form id="loginForm" onsubmit="handleLogin(event)" class="space-y-4">
+                <input type="text" id="mcUsername" placeholder="Minecraft Username" required="" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 text-white focus:outline-none focus:border-blue-500 transition">
+                <button type="submit" class="w-full brand-gradient py-4 rounded-xl font-bold transition uppercase tracking-widest">Login to Store</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-black/80 backdrop-blur-md border-b border-white/5 px-6 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-2 cursor-pointer group" onclick="switchSection('home')">
+                <div class="w-8 h-8 brand-gradient rounded-lg flex items-center justify-center group-hover:rotate-12 transition-transform">
+                    <i class="fas fa-cube text-white text-sm"></i>
+                </div>
+                <span class="text-xl font-extrabold tracking-tighter uppercase">DEGES<span class="text-blue-500">MC</span></span>
+            </div>
+            
+            <div class="hidden lg:flex gap-8 font-bold text-[11px] uppercase tracking-[0.2em]">
+                <span onclick="switchSection('home')" class="nav-link nav-home active">Home</span>
+                <span onclick="switchSection('store')" class="nav-link nav-store">Store</span>
+                <span onclick="switchSection('wiki')" class="nav-link nav-wiki">Wiki</span>
+                <span onclick="switchSection('discord')" class="nav-link nav-discord">Discord</span>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <!-- Status Badge next to Login -->
+                <div class="hidden sm:flex items-center gap-2 bg-white/5 border border-white/10 px-3 py-1.5 rounded-full">
+                    <span class="status-dot"></span>
+                    <span class="text-[9px] font-bold uppercase tracking-widest text-neutral-300">413 ONLINE</span>
+                </div>
+                <div id="authContainer">
+                    <button onclick="openLogin()" class="brand-gradient px-5 py-2 rounded-lg font-bold text-[11px] uppercase tracking-widest transition">Login</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- SECTION: HOME -->
+    <section id="section-home" class="section-view pt-40 pb-20 px-6 active">
+        <div class="max-w-7xl mx-auto text-center">
+            <div class="hero-glow"></div>
+
+            <h1 class="text-5xl md:text-8xl font-black italic mb-6 leading-tight uppercase tracking-tighter">NEXT GENERATION <br> <span class="brand-text">NETWORK</span></h1>
+            <p class="text-neutral-400 text-lg md:text-xl max-w-2xl mx-auto mb-10">Premium Minecraft experience with high performance and a competitive community.</p>
+            
+            <div class="flex flex-col sm:flex-row justify-center gap-4 mb-20">
+                <div class="bg-blue-500/5 border border-blue-500/20 p-1 rounded-xl flex items-center">
+                    <span class="px-5 font-mono font-bold text-blue-400">PLAY.DEGESMC.QZZ.IO</span>
+                    <button onclick="copyIP()" class="bg-blue-600 hover:bg-blue-500 px-5 py-3 rounded-lg font-bold text-sm transition">COPY</button>
+                </div>
+            </div>
+
+            <!-- Leadership Section -->
+            <div class="mb-20">
+                <h4 class="text-[10px] font-bold text-neutral-500 uppercase tracking-[0.4em] mb-8">Network Leadership</h4>
+                <div class="flex flex-wrap justify-center items-center gap-6">
+                    <div class="flex items-center gap-3 bg-white/5 px-5 py-2 rounded-xl border border-white/5">
+                        <img src="https://minotar.net/helm/Mustafa/24" class="rounded" alt="Mustafa">
+                        <span class="text-sm font-bold">Mustafa</span>
+                    </div>
+                    
+                    <div class="flex items-center gap-3 bg-blue-500/10 px-6 py-3 rounded-2xl border border-blue-500/30 scale-110 shadow-lg shadow-blue-500/10">
+                        <div class="w-10 h-10 rounded bg-[#111] overflow-hidden border border-white/20 shadow-inner">
+                            <svg viewBox="0 0 8 8" shape-rendering="crispEdges" class="w-full h-full">
+                                <rect x="0" y="0" width="8" height="8" fill="#cecece"></rect>
+                                <rect x="0" y="0" width="8" height="5" fill="#1b1b1b"></rect>
+                                <rect x="0" y="5" width="2" height="1" fill="#1b1b1b"></rect>
+                                <rect x="6" y="5" width="2" height="1" fill="#1b1b1b"></rect>
+                                <rect x="3" y="5" width="2" height="1" fill="#1b1b1b"></rect>
+                                <rect x="0" y="6" width="1" height="1" fill="#1b1b1b"></rect>
+                                <rect x="7" y="6" width="1" height="1" fill="#1b1b1b"></rect>
+                                <rect x="2" y="6" width="1" height="1" fill="#46b7d6"></rect>
+                                <rect x="5" y="6" width="1" height="1" fill="#46b7d6"></rect>
+                            </svg>
+                        </div>
+                        <span class="text-lg font-black italic brand-text uppercase">Abrar_Playz</span>
+                    </div>
+
+                    <div class="flex items-center gap-3 bg-white/5 px-5 py-2 rounded-xl border border-white/5">
+                        <img src="https://minotar.net/helm/noobieplayz__/24" class="rounded" alt="noobie">
+                        <span class="text-sm font-bold">noobieplayz__</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+                <div class="card-blur p-8 rounded-3xl">
+                    <i class="fas fa-bolt text-3xl text-blue-500 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2">Instant Response</h3>
+                    <p class="text-neutral-500 text-sm leading-relaxed">High-tick rate servers ensuring your hits always register perfectly.</p>
+                </div>
+                <div class="card-blur p-8 rounded-3xl">
+                    <i class="fas fa-shield-alt text-3xl text-blue-500 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2">Fair Play</h3>
+                    <p class="text-neutral-500 text-sm leading-relaxed">Advanced anti-cheat systems to ensure a balanced competitive environment.</p>
+                </div>
+                <div class="card-blur p-8 rounded-3xl">
+                    <i class="fas fa-globe text-3xl text-blue-500 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2">Global Hub</h3>
+                    <p class="text-neutral-500 text-sm leading-relaxed">Connect with players across the globe on our optimized backbone.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: STORE -->
+    <section id="section-store" class="section-view pt-32 pb-20 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-black italic tracking-tighter uppercase mb-8">NETWORK <span class="text-blue-500">STORE</span></h2>
+                <div class="flex flex-wrap justify-center gap-3">
+                    <button onclick="switchStoreTab('ranks')" class="category-btn active px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-widest">Ranks</button>
+                    <button onclick="switchStoreTab('coins')" class="category-btn px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-widest">Coins</button>
+                    <button onclick="switchStoreTab('keys')" class="category-btn px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-widest">Crate Keys</button>
+                </div>
+            </div>
+
+            <!-- Ranks Category -->
+            <div id="cat-ranks" class="store-category active">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="card-blur p-6 rounded-3xl text-center border-blue-500/30 scale-105">
+                        <div class="w-16 h-16 brand-gradient rounded-2xl flex items-center justify-center mx-auto mb-6"><i class="fas fa-crown text-2xl text-white"></i></div>
+                        <h3 class="font-bold text-lg mb-1 uppercase">Admiral</h3>
+                        <div class="mb-6 space-y-1">
+                            <p class="price-primary">$2.45 USD</p>
+                            <p class="price-tag">৳270 BDT | Rs 680 PKR</p>
+                        </div>
+                        <button onclick="handlePurchase('Admiral')" class="w-full py-3 brand-gradient rounded-xl font-bold text-xs uppercase">Buy Now</button>
+                    </div>
+                    <div class="card-blur p-6 rounded-3xl text-center">
+                        <div class="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center mx-auto mb-6"><i class="fas fa-anchor text-2xl text-blue-400"></i></div>
+                        <h3 class="font-bold text-lg mb-1 uppercase">Quartermaster</h3>
+                        <div class="mb-6 space-y-1">
+                            <p class="price-primary">$1.80 USD</p>
+                            <p class="price-tag">৳198 BDT | Rs 500 PKR</p>
+                        </div>
+                        <button onclick="handlePurchase('Quartermaster')" class="w-full py-3 bg-white/5 hover:bg-blue-600 rounded-xl font-bold text-xs uppercase transition">Buy Now</button>
+                    </div>
+                    <div class="card-blur p-6 rounded-3xl text-center">
+                        <div class="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center mx-auto mb-6"><i class="fas fa-medal text-2xl text-blue-400"></i></div>
+                        <h3 class="font-bold text-lg mb-1 uppercase">Commander</h3>
+                        <div class="mb-6 space-y-1">
+                            <p class="price-primary">$1.30 USD</p>
+                            <p class="price-tag">৳143 BDT | Rs 360 PKR</p>
+                        </div>
+                        <button onclick="handlePurchase('Commander')" class="w-full py-3 bg-white/5 hover:bg-blue-600 rounded-xl font-bold text-xs uppercase transition">Buy Now</button>
+                    </div>
+                    <div class="card-blur p-6 rounded-3xl text-center">
+                        <div class="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center mx-auto mb-6"><i class="fas fa-certificate text-2xl text-blue-400"></i></div>
+                        <h3 class="font-bold text-lg mb-1 uppercase">Deckhand</h3>
+                        <div class="mb-6 space-y-1">
+                            <p class="price-primary">$0.60 USD</p>
+                            <p class="price-tag">৳66 BDT | Rs 165 PKR</p>
+                        </div>
+                        <button onclick="handlePurchase('Deckhand')" class="w-full py-3 bg-white/5 hover:bg-blue-600 rounded-xl font-bold text-xs uppercase transition">Buy Now</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Coins Category -->
+            <div id="cat-coins" class="store-category">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                    <div class="card-blur p-6 rounded-3xl text-center">
+                        <i class="fas fa-coins text-4xl text-yellow-500 mb-4"></i>
+                        <h3 class="font-bold text-lg uppercase">1,000 Coins</h3>
+                        <div class="mb-6">
+                            <p class="price-primary text-yellow-500">$1.00 USD</p>
+                            <p class="price-tag">৳110 BDT | Rs 280 PKR</p>
+                        </div>
+                        <button onclick="handlePurchase('1k Coins')" class="w-full py-3 bg-white/5 hover:bg-yellow-600 rounded-xl font-bold text-xs uppercase transition">Buy</button>
+                    </div>
+                    <div class="card-blur p-6 rounded-3xl text-center">
+                        <i class="fas fa-coins text-4xl text-yellow-500 mb-4"></i>
+                        <h3 class="font-bold text-lg uppercase">5,000 Coins</h3>
+                        <div class="mb-6">
+                            <p class="price-primary text-yellow-500">$4.50 USD</p>
+                            <p class="price-tag">৳495 BDT | Rs 1,260 PKR</p>
+                        </div>
+                        <button onclick="handlePurchase('5k Coins')" class="w-full py-3 bg-white/5 hover:bg-yellow-600 rounded-xl font-bold text-xs uppercase transition">Buy</button>
+                    </div>
+                    <div class="card-blur p-6 rounded-3xl text-center">
+                        <i class="fas fa-coins text-4xl text-yellow-500 mb-4"></i>
+                        <h3 class="font-bold text-lg uppercase">10,000 Coins</h3>
+                        <div class="mb-6">
+                            <p class="price-primary text-yellow-500">$8.00 USD</p>
+                            <p class="price-tag">৳880 BDT | Rs 2,240 PKR</p>
+                        </div>
+                        <button onclick="handlePurchase('10k Coins')" class="w-full py-3 bg-white/5 hover:bg-yellow-600 rounded-xl font-bold text-xs uppercase transition">Buy</button>
+                    </div>
+                    <div class="card-blur p-6 rounded-3xl text-center border-blue-500/20">
+                        <i class="fas fa-gem text-4xl text-blue-400 mb-4"></i>
+                        <h3 class="font-bold text-lg uppercase">50,000 Coins</h3>
+                        <div class="mb-6">
+                            <p class="price-primary">$35.00 USD</p>
+                            <p class="price-tag">৳3,850 BDT | Rs 9,800 PKR</p>
+                        </div>
+                        <button onclick="handlePurchase('50k Coins')" class="w-full py-3 bg-blue-600 rounded-xl font-bold text-xs uppercase transition">Buy</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Keys Category -->
+            <div id="cat-keys" class="store-category">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="card-blur p-8 rounded-3xl text-center border-blue-500/20">
+                        <i class="fas fa-key text-4xl text-blue-500 mb-6"></i>
+                        <h3 class="font-bold text-xl uppercase mb-2">1x CORE KEY</h3>
+                        <div class="mb-6">
+                            <p class="price-primary">$0.50 USD</p>
+                            <p class="price-tag">৳55 BDT | Rs 140 PKR</p>
+                        </div>
+                        <button onclick="handlePurchase('1x Core Key')" class="w-full py-4 bg-blue-600/20 hover:bg-blue-600 border border-blue-500/30 rounded-xl font-bold uppercase transition">Add to Cart</button>
+                    </div>
+                    <div class="card-blur p-8 rounded-3xl text-center border-orange-500/50 scale-105 bg-orange-500/[0.03]">
+                        <i class="fas fa-dragon text-5xl text-orange-400 mb-6 drop-shadow-xl"></i>
+                        <h3 class="font-bold text-xl uppercase mb-2">1x DRAGON KEY</h3>
+                        <div class="mb-6">
+                            <p class="price-primary text-orange-400">$2.99 USD</p>
+                            <p class="price-tag text-orange-300/60">৳330 BDT | Rs 840 PKR</p>
+                        </div>
+                        <button onclick="handlePurchase('1x Dragon Key')" class="w-full py-4 bg-orange-600 rounded-xl font-bold uppercase transition shadow-lg shadow-orange-500/20">Add to Cart</button>
+                    </div>
+                    <div class="card-blur p-8 rounded-3xl text-center border-cyan-500/20">
+                        <i class="fas fa-bolt text-4xl text-cyan-500 mb-6"></i>
+                        <h3 class="font-bold text-xl uppercase mb-2">1x FLUX KEY</h3>
+                        <div class="mb-6">
+                            <p class="price-primary text-cyan-400">$1.99 USD</p>
+                            <p class="price-tag text-cyan-300/60">৳220 BDT | Rs 560 PKR</p>
+                        </div>
+                        <button onclick="handlePurchase('1x Flux Key')" class="w-full py-4 bg-cyan-600/20 hover:bg-cyan-600 border border-cyan-500/30 rounded-xl font-bold uppercase transition">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: WIKI -->
+    <section id="section-wiki" class="section-view pt-32 pb-20 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col lg:flex-row gap-8">
+                <!-- Sidebar -->
+                <aside class="w-full lg:w-80 space-y-4">
+                    <div class="card-blur p-6 rounded-3xl mb-4 border-blue-500/10">
+                        <h3 class="text-xs font-black text-blue-500 uppercase tracking-[0.3em] mb-4">Knowledge Base</h3>
+                        <div class="space-y-2">
+                            <button onclick="switchWikiContent('getting-started')" class="wiki-nav-btn active w-full flex items-center gap-3 p-4 rounded-2xl text-sm font-bold transition">
+                                <i class="fas fa-rocket w-5 text-center"></i>
+                                Getting Started
+                            </button>
+                            <button onclick="switchWikiContent('ranks-info')" class="wiki-nav-btn w-full flex items-center gap-3 p-4 rounded-2xl text-sm font-bold transition">
+                                <i class="fas fa-crown w-5 text-center"></i>
+                                Ranks &amp; Perks
+                            </button>
+                            <button onclick="switchWikiContent('rules')" class="wiki-nav-btn w-full flex items-center gap-3 p-4 rounded-2xl text-sm font-bold transition">
+                                <i class="fas fa-gavel w-5 text-center"></i>
+                                Network Rules
+                            </button>
+                            <button onclick="switchWikiContent('commands')" class="wiki-nav-btn w-full flex items-center gap-3 p-4 rounded-2xl text-sm font-bold transition">
+                                <i class="fas fa-terminal w-5 text-center"></i>
+                                Commands List
+                            </button>
+                            <button onclick="switchWikiContent('faq')" class="wiki-nav-btn w-full flex items-center gap-3 p-4 rounded-2xl text-sm font-bold transition">
+                                <i class="fas fa-question-circle w-5 text-center"></i>
+                                Support &amp; FAQ
+                            </button>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- Content Area -->
+                <main class="flex-1 card-blur p-8 lg:p-12 rounded-[2.5rem] border-white/5 min-h-[600px]">
+                    <div id="wiki-getting-started" class="wiki-content active">
+                        <h2 class="text-4xl font-black italic tracking-tighter uppercase mb-6">WELCOME TO <span class="text-blue-500">DEGESMC</span></h2>
+                        <div class="prose prose-invert max-w-none space-y-8">
+                            <p class="text-neutral-400 text-lg leading-relaxed">DEGESMC is a high-performance Minecraft network built for players who demand the best.</p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="bg-white/5 p-6 rounded-2xl border border-white/5">
+                                    <h4 class="font-bold text-blue-400 mb-2">1. Connection</h4>
+                                    <p class="text-sm text-neutral-500">Connect using version 1.8.x - 1.20.x at <code class="text-white">play.degesmc.qzz.io</code></p>
+                                </div>
+                                <div class="bg-white/5 p-6 rounded-2xl border border-white/5">
+                                    <h4 class="font-bold text-blue-400 mb-2">2. Verification</h4>
+                                    <p class="text-sm text-neutral-500">Use <code class="text-white">/register</code> to protect your account.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="wiki-ranks-info" class="wiki-content">
+                        <h2 class="text-4xl font-black italic tracking-tighter uppercase mb-6">RANKS &amp; <span class="text-blue-500">PERKS</span></h2>
+                        <div class="prose prose-invert max-w-none space-y-8">
+                            <p class="text-neutral-400 text-lg leading-relaxed">Unlock exclusive features and support DEGESMC with our rank system.</p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                                <div class="bg-gradient-to-br from-blue-500/10 to-cyan-500/10 p-6 rounded-2xl border border-blue-500/20 scale-105">
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <i class="fas fa-crown text-blue-500 text-2xl"></i>
+                                        <h4 class="font-bold text-blue-400">ADMIRAL</h4>
+                                    </div>
+                                    <p class="text-sm text-neutral-500 mb-4">Elite rank with maximum perks.</p>
+                                    <div class="mt-4 text-center">
+                                        <span class="price-tag">Starting at</span>
+                                        <div class="price-primary">$2.45</div>
+                                    </div>
+                                </div>
+                                <div class="bg-gradient-to-br from-blue-500/10 to-cyan-500/10 p-6 rounded-2xl border border-blue-500/20">
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <i class="fas fa-anchor text-blue-500 text-2xl"></i>
+                                        <h4 class="font-bold text-blue-400">QUARTERMASTER</h4>
+                                    </div>
+                                    <p class="text-sm text-neutral-500 mb-4">Advanced rank with enhanced features.</p>
+                                    <div class="mt-4 text-center">
+                                        <span class="price-tag">Starting at</span>
+                                        <div class="price-primary">$1.80</div>
+                                    </div>
+                                </div>
+                                <div class="bg-gradient-to-br from-blue-500/10 to-cyan-500/10 p-6 rounded-2xl border border-blue-500/20">
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <i class="fas fa-medal text-blue-500 text-2xl"></i>
+                                        <h4 class="font-bold text-blue-400">COMMANDER</h4>
+                                    </div>
+                                    <p class="text-sm text-neutral-500 mb-4">Mid-tier rank with solid perks.</p>
+                                    <div class="mt-4 text-center">
+                                        <span class="price-tag">Starting at</span>
+                                        <div class="price-primary">$1.30</div>
+                                    </div>
+                                </div>
+                                <div class="bg-gradient-to-br from-blue-500/10 to-cyan-500/10 p-6 rounded-2xl border border-blue-500/20">
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <i class="fas fa-certificate text-blue-500 text-2xl"></i>
+                                        <h4 class="font-bold text-blue-400">DECKHAND</h4>
+                                    </div>
+                                    <p class="text-sm text-neutral-500 mb-4">Entry-level supporter rank.</p>
+                                    <div class="mt-4 text-center">
+                                        <span class="price-tag">Starting at</span>
+                                        <div class="price-primary">$0.60</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-gradient-to-r from-blue-500/10 to-cyan-500/10 p-6 rounded-2xl border border-blue-500/20">
+                                <h4 class="font-bold text-blue-400 mb-3 flex items-center gap-2">
+                                    <i class="fas fa-key"></i>
+                                    Crate Keys System
+                                </h4>
+                                <p class="text-sm text-neutral-400 mb-4">DEGESMC features an exciting crate system! Purchase keys and open crates for amazing rewards.</p>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div class="text-center">
+                                        <i class="fas fa-key text-3xl text-blue-500 mb-2"></i>
+                                        <h5 class="font-bold text-blue-400 mb-1">CORE KEY</h5>
+                                        <p class="text-sm text-neutral-400">Basic crate key with common rewards</p>
+                                        <div class="mt-2">
+                                            <div class="price-primary text-sm">$0.50</div>
+                                        </div>
+                                    </div>
+                                    <div class="text-center bg-orange-500/[0.03] p-3 rounded-xl border border-orange-500/20 scale-105">
+                                        <i class="fas fa-dragon text-4xl text-orange-400 mb-2 drop-shadow-xl"></i>
+                                        <h5 class="font-bold text-orange-400 mb-1">DRAGON KEY</h5>
+                                        <p class="text-sm text-neutral-400">Rare crate key with epic rewards</p>
+                                        <div class="mt-2">
+                                            <div class="price-primary text-orange-400 text-sm">$2.99</div>
+                                        </div>
+                                    </div>
+                                    <div class="text-center">
+                                        <i class="fas fa-bolt text-3xl text-cyan-500 mb-2"></i>
+                                        <h5 class="font-bold text-cyan-400 mb-1">FLUX KEY</h5>
+                                        <p class="text-sm text-neutral-400">Special crate key with unique items</p>
+                                        <div class="mt-2">
+                                            <div class="price-primary text-cyan-400 text-sm">$1.99</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-4 text-center">
+                                    <p class="text-sm text-neutral-400">Keys can be purchased from the store and used to open crates for exclusive rewards!</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="wiki-rules" class="wiki-content">
+                        <h2 class="text-4xl font-black italic tracking-tighter uppercase mb-6">NETWORK <span class="text-blue-500">RULES</span></h2>
+                        <div class="prose prose-invert max-w-none space-y-8">
+                            <p class="text-neutral-400 text-lg leading-relaxed">Our rules ensure a fair and enjoyable experience for all players.</p>
+                            <div class="space-y-6">
+                                <div class="bg-white/5 p-6 rounded-2xl border border-white/5">
+                                    <h4 class="font-bold text-red-400 mb-3 flex items-center gap-2">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                        General Rules
+                                    </h4>
+                                    <ul class="text-sm text-neutral-400 space-y-2 ml-6">
+                                        <li>• No hacking, cheating, or using unfair advantages</li>
+                                        <li>• Respect all players and staff members</li>
+                                        <li>• No spamming or excessive caps in chat</li>
+                                        <li>• No advertising other servers or services</li>
+                                        <li>• Use appropriate language at all times</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-white/5 p-6 rounded-2xl border border-white/5">
+                                    <h4 class="font-bold text-yellow-400 mb-3 flex items-center gap-2">
+                                        <i class="fas fa-gavel"></i>
+                                        Gameplay Rules
+                                    </h4>
+                                    <ul class="text-sm text-neutral-400 space-y-2 ml-6">
+                                        <li>• No griefing or stealing from other players</li>
+                                        <li>• No building offensive structures</li>
+                                        <li>• Respect claim boundaries</li>
+                                        <li>• No excessive PvP in non-PvP areas</li>
+                                        <li>• Follow game mode specific rules</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-white/5 p-6 rounded-2xl border border-white/5">
+                                    <h4 class="font-bold text-blue-400 mb-3 flex items-center gap-2">
+                                        <i class="fas fa-shield-alt"></i>
+                                        Punishment System
+                                    </h4>
+                                    <p class="text-sm text-neutral-400 mb-3">Violations are handled based on severity:</p>
+                                    <ul class="text-sm text-neutral-400 space-y-1 ml-6">
+                                        <li>• <strong class="text-yellow-400">Warning</strong> - First offense</li>
+                                        <li>• <strong class="text-orange-400">Mute/Kick</strong> - Minor violations</li>
+                                        <li>• <strong class="text-red-400">Ban</strong> - Serious violations</li>
+                                        <li>• <strong class="text-red-600">Permanent Ban</strong> - Severe or repeated offenses</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="wiki-commands" class="wiki-content">
+                        <h2 class="text-4xl font-black italic tracking-tighter uppercase mb-6">COMMANDS <span class="text-blue-500">LIST</span></h2>
+                        <div class="prose prose-invert max-w-none space-y-8">
+                            <p class="text-neutral-400 text-lg leading-relaxed">Essential commands to enhance your gameplay experience.</p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="bg-white/5 p-6 rounded-2xl border border-white/5">
+                                    <h4 class="font-bold text-blue-400 mb-4 flex items-center gap-2">
+                                        <i class="fas fa-user"></i>
+                                        Player Commands
+                                    </h4>
+                                    <div class="space-y-3">
+                                        <div>
+                                            <code class="text-white bg-black/50 px-2 py-1 rounded text-sm">/spawn</code>
+                                            <p class="text-sm text-neutral-500 mt-1">Teleport to spawn</p>
+                                        </div>
+                                        <div>
+                                            <code class="text-white bg-black/50 px-2 py-1 rounded text-sm">/home</code>
+                                            <p class="text-sm text-neutral-500 mt-1">Go to your home</p>
+                                        </div>
+                                        <div>
+                                            <code class="text-white bg-black/50 px-2 py-1 rounded text-sm">/tpa [player]</code>
+                                            <p class="text-sm text-neutral-500 mt-1">Request teleport to player</p>
+                                        </div>
+                                        <div>
+                                            <code class="text-white bg-black/50 px-2 py-1 rounded text-sm">/msg [player] [message]</code>
+                                            <p class="text-sm text-neutral-500 mt-1">Send private message</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bg-white/5 p-6 rounded-2xl border border-white/5">
+                                    <h4 class="font-bold text-green-400 mb-4 flex items-center gap-2">
+                                        <i class="fas fa-cog"></i>
+                                        Utility Commands
+                                    </h4>
+                                    <div class="space-y-3">
+                                        <div>
+                                            <code class="text-white bg-black/50 px-2 py-1 rounded text-sm">/help</code>
+                                            <p class="text-sm text-neutral-500 mt-1">Show help menu</p>
+                                        </div>
+                                        <div>
+                                            <code class="text-white bg-black/50 px-2 py-1 rounded text-sm">/rules</code>
+                                            <p class="text-sm text-neutral-500 mt-1">Display server rules</p>
+                                        </div>
+                                        <div>
+                                            <code class="text-white bg-black/50 px-2 py-1 rounded text-sm">/report [player] [reason]</code>
+                                            <p class="text-sm text-neutral-500 mt-1">Report a player</p>
+                                        </div>
+                                        <div>
+                                            <code class="text-white bg-black/50 px-2 py-1 rounded text-sm">/vote</code>
+                                            <p class="text-sm text-neutral-500 mt-1">Vote for the server</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="wiki-faq" class="wiki-content">
+                        <h2 class="text-4xl font-black italic tracking-tighter uppercase mb-6">SUPPORT &amp; <span class="text-blue-500">FAQ</span></h2>
+                        <div class="prose prose-invert max-w-none space-y-8">
+                            <p class="text-neutral-400 text-lg leading-relaxed">Find answers to common questions and get support.</p>
+                            <div class="space-y-6">
+                                <div class="bg-white/5 p-6 rounded-2xl border border-white/5">
+                                    <h4 class="font-bold text-blue-400 mb-3">How do I connect to the server?</h4>
+                                    <p class="text-sm text-neutral-400">Use Minecraft versions 1.8.x through 1.20.x and connect to <code class="text-white">play.degesmc.qzz.io</code>. Make sure to register your account with <code class="text-white">/register [password]</code> for security.</p>
+                                </div>
+                                <div class="bg-white/5 p-6 rounded-2xl border border-white/5">
+                                    <h4 class="font-bold text-blue-400 mb-3">How do I purchase ranks?</h4>
+                                    <p class="text-sm text-neutral-400">Visit our store section or use <code class="text-white">/buy</code> in-game. All purchases support server development and provide exclusive perks.</p>
+                                </div>
+                                <div class="bg-white/5 p-6 rounded-2xl border border-white/5">
+                                    <h4 class="font-bold text-blue-400 mb-3">I lost my items! What do I do?</h4>
+                                    <p class="text-sm text-neutral-400">Contact staff immediately in Discord or use <code class="text-white">/helpop</code>. Keep screenshots of your inventory before the incident for faster resolution.</p>
+                                </div>
+                                <div class="bg-white/5 p-6 rounded-2xl border border-white/5">
+                                    <h4 class="font-bold text-blue-400 mb-3">How do I report a player?</h4>
+                                    <p class="text-sm text-neutral-400">Use <code class="text-white">/report [player] [reason]</code> in-game or contact staff in our Discord server. Provide as much detail as possible.</p>
+                                </div>
+                                <div class="bg-white/5 p-6 rounded-2xl border border-white/5">
+                                    <h4 class="font-bold text-blue-400 mb-3">Can I transfer my rank to another account?</h4>
+                                    <p class="text-sm text-neutral-400">Rank transfers are not available. Each account must purchase ranks separately. Contact support if you have special circumstances.</p>
+                                </div>
+                            </div>
+                            <div class="bg-gradient-to-r from-blue-500/10 to-cyan-500/10 p-6 rounded-2xl border border-blue-500/20 text-center">
+                                <h4 class="font-bold text-blue-400 mb-3">Need More Help?</h4>
+                                <p class="text-sm text-neutral-400 mb-4">Join our Discord server for live support and community assistance.</p>
+                                <a href="https://discord.gg/rvjm5GkpdT" target="_blank" class="inline-block bg-blue-600 hover:bg-blue-500 px-6 py-3 rounded-xl font-bold text-sm transition">Join Discord</a>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: DISCORD -->
+    <section id="section-discord" class="section-view pt-32 pb-20 px-6">
+        <div class="max-w-4xl mx-auto text-center">
+            <div class="w-20 h-20 bg-blue-600 rounded-[1.5rem] flex items-center justify-center mx-auto mb-8 shadow-2xl shadow-blue-600/20">
+                <i class="fab fa-discord text-4xl"></i>
+            </div>
+            <h2 class="text-5xl font-black italic tracking-tighter uppercase mb-6">JOIN OUR <span class="text-blue-500">DISCORD</span></h2>
+            <a href="https://discord.gg/rvjm5GkpdT" target="_blank" class="inline-block bg-white text-black hover:bg-blue-500 hover:text-white px-12 py-5 rounded-2xl font-black text-xl transition uppercase active:scale-95">Connect Now</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="mt-auto py-12 px-6 border-t border-white/5 bg-black/50">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-center md:text-left">
+                <span class="text-xl font-extrabold uppercase tracking-tighter">DEGES<span class="text-blue-500">MC</span></span>
+                <p class="text-[10px] text-neutral-600 mt-2">© 2026 DEGESMC NETWORK.</p>
+            </div>
+            <div class="flex gap-4">
+                <a href="https://discord.gg/rvjm5GkpdT" target="_blank" class="text-neutral-500 hover:text-white transition"><i class="fab fa-discord"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let currentUser = null;
+        const DISCORD_LINK = 'https://discord.gg/rvjm5GkpdT';
+
+        function switchSection(sectionId) {
+            document.querySelectorAll('.section-view').forEach(view => view.classList.remove('active'));
+            const target = document.getElementById('section-' + sectionId);
+            if (target) target.classList.add('active');
+            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+            const activeLink = document.querySelector('.nav-' + sectionId);
+            if (activeLink) activeLink.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function switchStoreTab(tabId) {
+            document.querySelectorAll('.store-category').forEach(cat => cat.classList.remove('active'));
+            const targetCat = document.getElementById('cat-' + tabId);
+            if (targetCat) targetCat.classList.add('active');
+            document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+        }
+
+        function switchWikiContent(contentId) {
+            document.querySelectorAll('.wiki-content').forEach(c => c.classList.remove('active'));
+            const target = document.getElementById('wiki-' + contentId);
+            if (target) target.classList.add('active');
+            document.querySelectorAll('.wiki-nav-btn').forEach(btn => btn.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+        }
+
+        function openLogin() {
+            document.getElementById('loginModal').classList.remove('hidden');
+            document.getElementById('mcUsername').focus();
+        }
+
+        function closeLogin() {
+            document.getElementById('loginModal').classList.add('hidden');
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const username = document.getElementById('mcUsername').value.trim();
+            if (username) {
+                currentUser = username;
+                updateAuthUI();
+                closeLogin();
+            }
+        }
+
+        function updateAuthUI() {
+            const container = document.getElementById('authContainer');
+            if (currentUser) {
+                container.innerHTML = `
+                    <div class="flex items-center gap-3 bg-white/5 pr-4 pl-1 py-1 rounded-xl border border-white/10">
+                        <img src="https://minotar.net/helm/${currentUser}/24" class="rounded" alt="Skin">
+                        <span class="text-xs font-black uppercase tracking-tighter">${currentUser}</span>
+                        <button onclick="logout()" class="text-neutral-500 hover:text-red-500 transition ml-2">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </button>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = `<button onclick="openLogin()" class="brand-gradient px-5 py-2 rounded-lg font-bold text-[11px] uppercase tracking-widest transition">Login</button>`;
+            }
+        }
+
+        function logout() {
+            currentUser = null;
+            updateAuthUI();
+        }
+
+        function handlePurchase(item) {
+            if (!currentUser) return openLogin();
+            window.open(DISCORD_LINK, '_blank');
+        }
+
+        function copyIP() {
+            const temp = document.createElement('textarea');
+            temp.value = 'play.degesmc.qzz.io';
+            document.body.appendChild(temp);
+            temp.select();
+            document.execCommand('copy');
+            document.body.removeChild(temp);
+            const btn = event.currentTarget;
+            btn.innerText = 'COPIED';
+            setTimeout(() => btn.innerText = 'COPY', 2000);
+        }
+    </script>
+<!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+
+</body></html>
